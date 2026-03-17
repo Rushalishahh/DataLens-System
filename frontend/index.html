@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DataLens System</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background"></div>
+
+    <div class="container">
+        <h1>📊 DataLens System</h1>
+        <p class="subtitle">Monitor your data. Detect changes. Visualize insights.</p>
+
+        <!-- Baseline Upload -->
+        <div class="card">
+            <h2>Upload Baseline Dataset</h2>
+
+            <div class="upload-box">
+                <input type="file" id="baselineFile">
+                <button onclick="uploadBaseline()">Upload</button>
+            </div>
+        </div>
+
+        <!-- Current Upload -->
+        <div class="card">
+            <h2>Upload Current Dataset</h2>
+
+            <div class="upload-box">
+                <input type="file" id="currentFile">
+                <button onclick="uploadCurrent()">Upload</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="card">
+            <h2>Results</h2>
+            <div id="results">
+                <p>No data yet...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
