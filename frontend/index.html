@@ -2,53 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DataLens System</title>
-
-    <!-- Google Font -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataLens System — EDA & Preprocessing</title>
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
     <div class="background"></div>
 
     <div class="container">
-        <h1>📊 DataLens System</h1>
-        <p class="subtitle">Monitor your data. Detect changes. Visualize insights.</p>
+        <header>
+            <h1>📊 DataLens System</h1>
+            <p class="subtitle">Upload your datasets • Get EDA insights • Download cleaned data</p>
+            <div class="status-badge">
+                <span class="dot offline"></span>
+                <span class="status-text">Connecting...</span>
+            </div>
+        </header>
 
-        <!-- Baseline Upload -->
-        <div class="card">
-            <h2>Upload Baseline Dataset</h2>
+        <!-- Upload Section -->
+        <div class="dashboard-grid">
+            <!-- Baseline -->
+            <div class="card upload-card">
+                <div class="card-header">
+                    <h3>📁 Baseline Dataset</h3>
+                </div>
+                <div class="upload-zone" id="baselineZone">
+                    <div class="upload-icon">☁️</div>
+                    <p>Drag & drop or click to upload</p>
+                    <span class="upload-hint">Accepts .csv files</span>
+                    <input type="file" id="baselineFile" accept=".csv">
+                </div>
+                <button class="btn-primary" id="uploadBaseline">
+                    <span>Upload & Analyze Baseline</span>
+                </button>
+            </div>
 
-            <div class="upload-box">
-                <input type="file" id="baselineFile">
-                <button onclick="uploadBaseline()">Upload</button>
+            <!-- Current -->
+            <div class="card upload-card">
+                <div class="card-header">
+                    <h3>📈 Current Dataset</h3>
+                </div>
+                <div class="upload-zone" id="currentZone">
+                    <div class="upload-icon">🔍</div>
+                    <p>Drag & drop or click to upload</p>
+                    <span class="upload-hint">Accepts .csv files</span>
+                    <input type="file" id="currentFile" accept=".csv">
+                </div>
+                <button class="btn-primary" id="uploadCurrent">
+                    <span>Upload & Analyze Current</span>
+                </button>
             </div>
         </div>
 
-        <!-- Current Upload -->
-        <div class="card">
-            <h2>Upload Current Dataset</h2>
+        <div id="resultsRoot" style="display: none;">
+            <!-- Reports Grid -->
+            <div id="reportGrid" class="report-grid"></div>
 
-            <div class="upload-box">
-                <input type="file" id="currentFile">
-                <button onclick="uploadCurrent()">Upload</button>
+            <!-- Global Charts -->
+            <div id="chartsSection" class="card" style="display: none; margin-top: 24px;">
+                <div class="chart-header">
+                    <h3>📊 Dataset Distributions</h3>
+                    <div class="chart-toggles">
+                        <button id="toggleBaseline" class="toggle-btn active" onclick="switchChart('baseline')">Baseline</button>
+                        <button id="toggleCurrent" class="toggle-btn" onclick="switchChart('current')">Current</button>
+                    </div>
+                </div>
+                <div class="charts-layout" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-top: 20px;">
+                    <div class="chart-container" style="height: 320px;">
+                        <h4 class="sub-heading">Missing Values per Column</h4>
+                        <canvas id="chartCanvas"></canvas>
+                    </div>
+                    <div class="chart-container" style="height: 320px;">
+                        <h4 class="sub-heading">Data Type Distribution</h4>
+                        <canvas id="typeChartCanvas"></canvas>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- Results -->
-        <div class="card">
-            <h2>Results</h2>
-            <div id="results">
-                <p>No data yet...</p>
+            <!-- Drift Section -->
+            <div id="driftSection" class="card" style="display: none; margin-top: 24px;">
+                <h3 style="margin-bottom: 20px;">⚡ Drift Detection (Baseline vs Current)</h3>
+                <div id="driftContent"></div>
             </div>
         </div>
     </div>
 
+    <!-- Notifications -->
+    <div id="toast"></div>
+
+    <!-- App Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
-
-
